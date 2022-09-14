@@ -36,7 +36,7 @@ class ProfessionalController {
 
   async findDatasheet(request, response) {
     try {
-      const { userType } = request;
+      const { userType, userId } = request;
 
       if (!(userType === "PROFESSIONAL")) return response.status(401).json();
 
@@ -84,6 +84,14 @@ class ProfessionalController {
             },
           },
         ],
+
+        attributes: {
+          exclude: ["professional_id", "student_id"],
+        },
+
+        where: {
+          professional_id: userId,
+        },
       });
 
       return response.status(200).json(dataSheets);
@@ -91,6 +99,115 @@ class ProfessionalController {
       return response.status(500).json({
         message: "Erro ao buscar fichas",
         error,
+      });
+    }
+  }
+
+  async deleteDatasheet(request, response) {
+    try {
+      const { id } = request.params;
+      const { userType, userId } = request;
+
+      if (!(userType === "PROFESSIONAL")) return response.status(401).json();
+
+      await DatasheetModel.destroy({ where: { id } });
+
+      return response.status(200).json();
+    } catch (error) {
+      return response.status(500).json({
+        message: "Erro ao deletar ficha",
+        error: error.message,
+      });
+    }
+  }
+
+  async updateDatasheet(request, response) {
+    try {
+      const { id } = request.params;
+      const { weight, height } = request.body;
+      const { userType, userId } = request;
+
+      if (!(userType === "PROFESSIONAL")) return response.status(401).json();
+
+      await DatasheetModel.update({ weight, height }, { where: { id } });
+
+      return response.status(200).json();
+    } catch (error) {
+      return response.status(500).json({
+        message: "Erro ao atualizar ficha",
+        error: error.message,
+      });
+    }
+  }
+
+  async findOneDatasheet(request, response) {
+    try {
+      const { id } = request.params;
+      const { weight, height } = request.body;
+      const { userType, userId } = request;
+
+      if (!(userType === "PROFESSIONAL")) return response.status(401).json();
+
+      const dataSheet = await DatasheetModel.findOne({
+        include: [
+          {
+            model: StudentModel,
+            include: [
+              {
+                model: UserModel,
+                attributes: {
+                  exclude: [
+                    "createdAt",
+                    "updatedAt",
+                    "password",
+                    "phone",
+                    "login",
+                  ],
+                },
+              },
+            ],
+            attributes: {
+              exclude: ["user_id", "createdAt", "updatedAt"],
+            },
+          },
+
+          {
+            model: ProfessionalModel,
+            include: [
+              {
+                model: UserModel,
+                attributes: {
+                  exclude: [
+                    "createdAt",
+                    "updatedAt",
+                    "password",
+                    "phone",
+                    "login",
+                  ],
+                },
+              },
+            ],
+            attributes: {
+              exclude: ["user_id", "createdAt", "updatedAt"],
+            },
+          },
+        ],
+
+        attributes: {
+          exclude: ["professional_id", "student_id"],
+        },
+
+        where: {
+          professional_id: userId,
+          id,
+        },
+      });
+
+      return response.status(200).json(dataSheet);
+    } catch (error) {
+      return response.status(500).json({
+        message: "Erro ao buscar ficha",
+        error: error.message,
       });
     }
   }
@@ -126,7 +243,7 @@ class ProfessionalController {
 
   async findTrainingSheet(request, response) {
     try {
-      const { userType } = request;
+      const { userType, userId } = request;
 
       if (!(userType === "PROFESSIONAL")) return response.status(401).json();
 
@@ -190,8 +307,17 @@ class ProfessionalController {
         ],
 
         attributes: {
-          exclude: ["muscular_group_id", "exercise_id", "professional_id", "student_id"]
-        }
+          exclude: [
+            "muscular_group_id",
+            "exercise_id",
+            "professional_id",
+            "student_id",
+          ],
+        },
+
+        where: {
+          professional_id: userId,
+        },
       });
 
       return response.status(200).json(trainingSheets);
@@ -199,6 +325,136 @@ class ProfessionalController {
       return response.status(500).json({
         message: "Erro ao buscar fichas",
         error,
+      });
+    }
+  }
+
+  async deleteTrainingSheet(request, response) {
+    try {
+      const { id } = request.params;
+      const { userType, userId } = request;
+
+      if (!(userType === "PROFESSIONAL")) return response.status(401).json();
+
+      await TrainingSheetModel.destroy({ where: { id } });
+
+      return response.status(200).json();
+    } catch (error) {
+      return response.status(500).json({
+        message: "Erro ao deletar ficha",
+        error: error.message,
+      });
+    }
+  }
+
+  async updateTrainingSheet(request, response) {
+    try {
+      const { id } = request.params;
+      const { frequency, muscular_group_id, exercise_id } = request.body;
+      const { userType, userId } = request;
+
+      if (!(userType === "PROFESSIONAL")) return response.status(401).json();
+
+      await TrainingSheetModel.update(
+        { frequency: frequency.join("/"), muscular_group_id, exercise_id },
+        { where: { id } }
+      );
+
+      return response.status(200).json();
+    } catch (error) {
+      return response.status(500).json({
+        message: "Erro ao atualizar ficha",
+        error: error.message,
+      });
+    }
+  }
+
+  async findOneTrainingSheet(request, response) {
+    try {
+      const { id } = request.params;
+      const { weight, height } = request.body;
+      const { userType, userId } = request;
+
+      if (!(userType === "PROFESSIONAL")) return response.status(401).json();
+
+      const dataSheet = await TrainingSheetModel.findOne({
+        include: [
+          {
+            model: StudentModel,
+            include: [
+              {
+                model: UserModel,
+                attributes: {
+                  exclude: [
+                    "createdAt",
+                    "updatedAt",
+                    "password",
+                    "phone",
+                    "login",
+                  ],
+                },
+              },
+            ],
+            attributes: {
+              exclude: ["user_id", "createdAt", "updatedAt"],
+            },
+          },
+
+          {
+            model: ProfessionalModel,
+            include: [
+              {
+                model: UserModel,
+                attributes: {
+                  exclude: [
+                    "createdAt",
+                    "updatedAt",
+                    "password",
+                    "phone",
+                    "login",
+                  ],
+                },
+              },
+            ],
+            attributes: {
+              exclude: ["user_id", "createdAt", "updatedAt"],
+            },
+          },
+
+          {
+            model: MuscularGroupModel,
+            attributes: {
+              exclude: ["createdAt", "updatedAt"],
+            },
+          },
+
+          {
+            model: ExercisesModel,
+            attributes: {
+              exclude: ["createdAt", "updatedAt"],
+            },
+          },
+        ],
+
+        attributes: {
+          exclude: [
+            "muscular_group_id",
+            "exercise_id",
+            "professional_id",
+            "student_id",
+          ],
+        },
+
+        where: {
+          professional_id: userId,
+        },
+      });
+
+      return response.status(200).json(dataSheet);
+    } catch (error) {
+      return response.status(500).json({
+        message: "Erro ao buscar ficha",
+        error: error.message,
       });
     }
   }

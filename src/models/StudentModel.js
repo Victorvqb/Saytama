@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize";
 import { sequelize as connection } from "../database/config.js";
 import { PlanModel } from "./PlanModel.js";
+import { StudentPlanModel } from "./StudentPlan.js";
 import { TrainingSheetModel } from "./TrainingSheet.js";
 import { UserModel } from "./UserModel.js";
 
@@ -20,18 +21,20 @@ StudentModel.belongsTo(UserModel, {
   onUpdate: "CASCADE",
 });
 
-PlanModel.belongsTo(StudentModel, {
+StudentModel.belongsToMany(PlanModel, {
   foreignKey: "student_id",
+  through: {
+    model: StudentPlanModel,
+  },
   constraints: true,
-  onDelete: "CASCADE",
-  onUpdate: "CASCADE",
 });
 
-StudentModel.hasOne(PlanModel, {
-  foreignKey: "student_id",
+PlanModel.belongsToMany(StudentModel, {
+  foreignKey: "plan_id",
+  through: {
+    model: StudentPlanModel,
+  },
   constraints: true,
-  onDelete: "CASCADE",
-  onUpdate: "CASCADE",
 });
 
 TrainingSheetModel.belongsTo(StudentModel, {

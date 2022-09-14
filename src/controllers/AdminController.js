@@ -30,8 +30,6 @@ class AdminController {
     try {
       const { userType } = request;
 
-      console.log(userType)
-
       if (!(userType === "ADMIN")) return response.status(401).json();
 
       const { description } = request.body;
@@ -49,6 +47,65 @@ class AdminController {
     }
   }
 
+  async deleteMuscularGroup(request, response) {
+    try {
+      const { userType } = request;
+
+      if (!(userType === "ADMIN")) return response.status(401).json();
+
+      const { id } = request.params;
+
+      await MuscularGroupModel.destroy({ where: { id } });
+      return response.status(201).json();
+    } catch (error) {
+      return response.status(500).json({
+        message: "Erro ao deletar ficha",
+        error: error.message,
+      });
+    }
+  }
+
+  async updateMuscularGroup(request, response) {
+    try {
+      const { userType } = request;
+
+      if (!(userType === "ADMIN")) return response.status(401).json();
+
+      const { id } = request.params;
+      const { description } = request.body;
+
+      if ([description].includes("")) throw new Error("There are empty fields");
+
+      await MuscularGroupModel.update({ description }, { where: { id } });
+
+      return response.status(201).json();
+    } catch (error) {
+      return response.status(500).json({
+        message: "Erro ao atualizar ficha",
+        error: error.message,
+      });
+    }
+  }
+
+  async findOneMuscularGroup(request, response) {
+    try {
+      const { userType } = request;
+
+      if (!(userType === "ADMIN")) return response.status(401).json();
+
+      const { id } = request.params;
+
+      const muscularGroup = await MuscularGroupModel.findOne({ where: { id } });
+
+      return response.status(201).json(muscularGroup);
+    } catch (error) {
+      return response.status(500).json({
+        message: "Erro ao atualizar ficha",
+        error: error.message,
+      });
+    }
+  }
+
   async findExercises(request, response) {
     try {
       const { userType } = request;
@@ -60,7 +117,7 @@ class AdminController {
       return response.status(200).json(exercises);
     } catch (error) {
       return response.status(500).json({
-        message: "Erro ao buscar fichas",
+        message: "Erro ao buscar Exercicios",
         error,
       });
     }
@@ -81,7 +138,66 @@ class AdminController {
       return response.status(201).json(exercise);
     } catch (error) {
       return response.status(500).json({
-        message: "Erro ao criar ficha",
+        message: "Erro ao criar Exercicio",
+        error: error.message,
+      });
+    }
+  }
+
+  async updateExercises(request, response) {
+    try {
+      const { userType } = request;
+
+      if (!(userType === "ADMIN")) return response.status(401).json();
+
+      const { id } = request.params;
+      const { description } = request.body;
+
+      if ([description].includes("")) throw new Error("There are empty fields");
+
+      await ExercisesModel.update({ description }, { where: { id } });
+
+      return response.status(201).json();
+    } catch (error) {
+      return response.status(500).json({
+        message: "Erro ao atualizar Exercicio",
+        error: error.message,
+      });
+    }
+  }
+
+  async deleteExercises(request, response) {
+    try {
+      const { userType } = request;
+
+      if (!(userType === "ADMIN")) return response.status(401).json();
+
+      const { id } = request.params;
+
+      await ExercisesModel.destroy({ where: { id } });
+      return response.status(201).json();
+    } catch (error) {
+      return response.status(500).json({
+        message: "Erro ao deletar Exercicio",
+        error: error.message,
+      });
+    }
+  }
+
+  async findOneExercises(request, response) {
+    try {
+      const { userType } = request;
+
+      if (!(userType === "ADMIN")) return response.status(401).json();
+
+      const { id } = request.params;
+
+      const exercise = await ExercisesModel.findOne({ where: { id } });
+
+      return response.status(201).json(exercise);
+    } catch (error) {
+      return response.status(500).json({
+        message: "Erro ao buscar Exercicio",
         error: error.message,
       });
     }
@@ -93,7 +209,74 @@ class AdminController {
 
       if (!(userType === "ADMIN")) return response.status(401).json();
 
-      const trainingSheets = await TrainingSheetModel.findAll();
+      const trainingSheets = await TrainingSheetModel.findAll({
+        include: [
+          {
+            model: StudentModel,
+            include: [
+              {
+                model: UserModel,
+                attributes: {
+                  exclude: [
+                    "createdAt",
+                    "updatedAt",
+                    "password",
+                    "phone",
+                    "login",
+                  ],
+                },
+              },
+            ],
+            attributes: {
+              exclude: ["user_id", "createdAt", "updatedAt"],
+            },
+          },
+
+          {
+            model: ProfessionalModel,
+            include: [
+              {
+                model: UserModel,
+                attributes: {
+                  exclude: [
+                    "createdAt",
+                    "updatedAt",
+                    "password",
+                    "phone",
+                    "login",
+                  ],
+                },
+              },
+            ],
+            attributes: {
+              exclude: ["user_id", "createdAt", "updatedAt"],
+            },
+          },
+
+          {
+            model: MuscularGroupModel,
+            attributes: {
+              exclude: ["createdAt", "updatedAt"],
+            },
+          },
+
+          {
+            model: ExercisesModel,
+            attributes: {
+              exclude: ["createdAt", "updatedAt"],
+            },
+          },
+        ],
+
+        attributes: {
+          exclude: [
+            "muscular_group_id",
+            "exercise_id",
+            "professional_id",
+            "student_id",
+          ],
+        },
+      });
 
       return response.status(200).json(trainingSheets);
     } catch (error) {
@@ -110,7 +293,55 @@ class AdminController {
 
       if (!(userType === "ADMIN")) return response.status(401).json();
 
-      const dataSheets = await DatasheetModel.findAll();
+      const dataSheets = await DatasheetModel.findAll({
+        include: [
+          {
+            model: StudentModel,
+            include: [
+              {
+                model: UserModel,
+                attributes: {
+                  exclude: [
+                    "createdAt",
+                    "updatedAt",
+                    "password",
+                    "phone",
+                    "login",
+                  ],
+                },
+              },
+            ],
+            attributes: {
+              exclude: ["user_id", "createdAt", "updatedAt"],
+            },
+          },
+
+          {
+            model: ProfessionalModel,
+            include: [
+              {
+                model: UserModel,
+                attributes: {
+                  exclude: [
+                    "createdAt",
+                    "updatedAt",
+                    "password",
+                    "phone",
+                    "login",
+                  ],
+                },
+              },
+            ],
+            attributes: {
+              exclude: ["user_id", "createdAt", "updatedAt"],
+            },
+          },
+        ],
+
+        attributes: {
+          exclude: ["professional_id", "student_id"],
+        },
+      });
 
       return response.status(200).json(dataSheets);
     } catch (error) {
@@ -184,6 +415,29 @@ class AdminController {
     }
   }
 
+  async registerPlan(request, response) {
+    try {
+      const { userType, userId } = request;
+      const { price, type } = request.body;
+
+      if (!(userType === "ADMIN")) return response.status(401).json();
+
+      if ([price, type].includes("")) throw new Error("There are empty fields");
+
+      const plan = await PlanModel.create({
+        price,
+        type,
+      });
+
+      return response.status(201).json(plan);
+    } catch (error) {
+      return response.status(500).json({
+        message: "Erro ao criar plano",
+        error: error.message,
+      });
+    }
+  }
+
   async findPlans(request, response) {
     try {
       const { userType } = request;
@@ -197,6 +451,65 @@ class AdminController {
       return response.status(500).json({
         message: "Erro ao buscar fichas",
         error,
+      });
+    }
+  }
+
+  async updatePlan(request, response) {
+    try {
+      const { userType } = request;
+
+      if (!(userType === "ADMIN")) return response.status(401).json();
+
+      const { id } = request.params;
+      const { price, type } = request.body;
+
+      if ([price, type].includes("")) throw new Error("There are empty fields");
+
+      await PlanModel.update({ price, type }, { where: { id } });
+
+      return response.status(201).json();
+    } catch (error) {
+      return response.status(500).json({
+        message: "Erro ao atualizar Plano",
+        error: error.message,
+      });
+    }
+  }
+
+  async deletePlan(request, response) {
+    try {
+      const { userType } = request;
+
+      if (!(userType === "ADMIN")) return response.status(401).json();
+
+      const { id } = request.params;
+
+      await PlanModel.destroy({ where: { id } });
+      return response.status(201).json();
+    } catch (error) {
+      return response.status(500).json({
+        message: "Erro ao deletar Plano",
+        error: error.message,
+      });
+    }
+  }
+
+  async findOnePlan(request, response) {
+    try {
+      const { userType } = request;
+
+      if (!(userType === "ADMIN")) return response.status(401).json();
+
+      const { id } = request.params;
+
+      const plan = await PlanModel.findOne({ where: { id } });
+
+      return response.status(201).json(plan);
+    } catch (error) {
+      return response.status(500).json({
+        message: "Erro ao buscar Plano",
+        error: error.message,
       });
     }
   }

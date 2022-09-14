@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import { sequelize as connection } from "../database/config.js";
 
-const PlanModel = connection.define("plans", {
+const StudentPlanModel = connection.define("student_plan", {
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -9,15 +9,10 @@ const PlanModel = connection.define("plans", {
     autoIncrement: true,
   },
 
-  price: {
-    type: DataTypes.FLOAT,
-    allowNull: false,
-  },
-
-  type: {
+  status: {
     type: DataTypes.STRING,
     allowNull: false,
   },
 });
 
-export { PlanModel };
+export { StudentPlanModel };

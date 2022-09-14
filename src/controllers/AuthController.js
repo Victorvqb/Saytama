@@ -31,7 +31,7 @@ class AuthController {
       const { login, password } = request.body;
 
       const user = await UserModel.findOne({
-        where: { login },
+        where: { login},
       });
 
       if (!user) return response.sendStatus(401);
