@@ -1,0 +1,16 @@
+INSERT INTO saytama.users (name,phone,`type`,login,password,createdAt,updatedAt) VALUES
+	 ('Jhollyfer Rodrigues','(92) 98566-6566','ADMIN','jhollyferr@gmail.com','$2b$10$Aj3TO9.KvZqO6DAVRwmHNO1ur1sEcZNB1Jrw2.FoiDgi7Mfzk.Dau','2022-09-14 10:28:17','2022-09-14 10:28:17'),
+	 ('Jhollyfer Rodrigues','(92) 98566-6566','STUDENT','111.111.111-11','$2b$10$RwhRkJ8oMso.9SMaLm8aW.0j.iHMc18K.IPDFizAfmV4ZMpHHzXVy','2022-09-14 10:28:21','2022-09-14 10:28:21'),
+	 ('Jhollyfer Rodrigues','(92) 98566-6566','PROFESSIONAL','000.000.00-00','$2b$10$N18g2y2zKnGtm8HKp8gsH.eTc9LswXKQZoS9kSh9aZcGWhLtTg0Ca','2022-09-14 10:28:25','2022-09-14 10:28:25'),
+	 ('Jhollyfer Rodrigues','(92) 98566-6566','STUDENT','111.111.111-11','$2b$10$SgDCoSNpf9E84ORGIW3oGeATAaNeLeNoJHAfhSpJqkNBqPLD4VRDS','2022-09-14 10:33:50','2022-09-14 10:33:50'),
+	 ('Marcos Rodrigues','(92) 98566-6566','PROFESSIONAL','000.000.00-00','$2b$10$p6oN2YSImTxYw3xFoIBB4uTwduQuvLAmTEMSYL2IHhp/rdxx7ol22','2022-09-14 10:42:54','2022-09-14 10:42:54'),
+	 ('Marcos Rodrigues','(92) 98566-6566','PROFESSIONAL','000.000.00-01','$2b$10$bYPt.0ypmbN5RoXJwQjeO.d0d.C/4RBxTrTB24lk2XpnwY6YZYnp.','2022-09-14 10:43:38','2022-09-14 10:43:38'),
+	 ('Rodrigues Jhollyfer','(92) 98566-6566','ADMIN','jhollyferr@gmail.com','$2b$10$L0Eo9AVwgXD07a0XVWO13umylbFLW6LH67WJRplJLvT2U381AuYgi','2022-09-14 13:51:29','2022-09-14 13:51:29'),
+	 ('Caio Dias','(92) 98562-2323','STUDENT','123.123.123-12','$2b$10$1pD31RggyJ6HIe/Xvx80EO9eWWOP6YbvStTvPuiK4G8tO8peeYGQ.','2022-09-14 15:59:50','2022-09-14 15:59:50'),
+	 ('Lucas Assis','(92) 93454-4545','PROFESSIONAL','321.321.321-12','$2b$10$DnIUs01mV/1VnCBveAOa3.UWVgM3IBb.qaiWTpJad53JkEhw0uK0m','2022-09-14 16:05:06','2022-09-14 16:05:06'),
+	 ('Lucas Assis','(92) 93454-4545','PROFESSIONAL','321.321.321-12','$2b$10$w23vue3i2TiSqYlvUT/pBuUdTsJcnSizj1Y5c4QF/Z7TbiglybEUq','2022-09-14 16:06:55','2022-09-14 16:06:55');
+INSERT INTO saytama.users (name,phone,`type`,login,password,createdAt,updatedAt) VALUES
+	 ('Lucas Motano','(92) 92323-3453','STUDENT','222.222.222-22','$2b$10$bVQlxqIv7FUBDXamCtHRg.xUrEn7lpd9cSIb53Aa9UJeBosc4wWZu','2022-09-14 16:09:55','2022-09-14 16:09:55'),
+	 ('Joao Davi','(99) 99999-9999','PROFESSIONAL','999.999.999-99','$2b$10$LWH2oVFkEz1RnVN.Db/F0e6wcNoEVm84kp8bRYfEviTo63X9aqeoG','2022-09-14 16:14:01','2022-09-14 16:14:01'),
+	 ('Victor Queiroz','(66) 66666-6666','STUDENT','123.412.412-34','$2b$10$GrzlqAWhNFVVSo/EiYieMOW.Uhskqy7y7ZrrVg4NAGVuJZHWh.L.m','2022-09-14 17:57:21','2022-09-14 17:57:21'),
+	 ('Teste','(00) 00000-0000','STUDENT','123.123.123-12','$2b$10$i1X.eWAmjhvQB1zCfr5hDu.GXWHSlv0oLMN4h0eP9NtQbpS1RyiTm','2022-09-15 16:53:08','2022-09-15 16:53:08');
