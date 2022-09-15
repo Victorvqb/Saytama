@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Saytama | Signup</title>
+    <script src="libs/axios.min.js" defer></script>
+    <link rel="stylesheet" href="styles/index.css" />
+    <link rel="stylesheet" href="styles/signup.css" />
+  </head>
+  <body>
+    <form id="form_signup" name="form_signup">
+      <h1>Cadastre-se</h1>
+
+      <div class="form-container">
+        <div class="form-column">
+          <div class="form-group">
+            <input
+              type="text"
+              name="_name"
+              id="_name"
+              class="form-control"
+              placeholder="Nome"
+            />
+          </div>
+
+          <div class="form-group">
+            <input
+              type="text"
+              name="_phone"
+              id="_phone"
+              class="form-control"
+              placeholder="Telefone"
+            />
+          </div>
+
+          <div class="form-group">
+            <input
+              type="text"
+              name="_login"
+              id="_login"
+              class="form-control"
+              placeholder="Login"
+            />
+          </div>
+
+          <div class="form-group">
+            <input
+              type="password"
+              name="_password"
+              id="_password"
+              class="form-control"
+              placeholder="Senha"
+            />
+          </div>
+        </div>
+
+        <div class="form-column">
+          <div class="form-group">
+            <select name="_type" id="_type" class="form-control">
+              <option value=" " disabled selected>Tipo de usuário</option>
+              <option value="PROFESSIONAL">Instrutor</option>
+              <option value="STUDENT">Estudante</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <input
+              type="text"
+              name="_district"
+              id="_district"
+              class="form-control"
+              placeholder="Bairro"
+            />
+          </div>
+
+          <div class="form-group">
+            <input
+              type="text"
+              name="_road"
+              id="_road"
+              class="form-control"
+              placeholder="Rua"
+            />
+          </div>
+
+          <div class="form-group">
+            <input
+              type="text"
+              name="_number"
+              id="_number"
+              class="form-control"
+              placeholder="Número"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button id="_signup" name="_signup" class="form-control">
+          Cadastrar
+        </button>
+      </div>
+
+      <a href="index.html">Já tenho uma conta</a>
+    </form>
+    <script src="modules/signup.js" type="module"></script>
+  </body>
+</html>

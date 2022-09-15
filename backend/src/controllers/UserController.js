@@ -8,7 +8,7 @@ import {
 
 class UserController {
 
-  async singUp(request, response) {
+  async signUp(request, response) {
     try {
       const { name, phone, login, type, password, address } = request.body;
 

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Saytama | Dashboard</title>
+    <script src="../../libs/axios.min.js" defer></script>
+    <link rel="stylesheet" href="../../styles/index.css" />
+    <link rel="stylesheet" href="../../styles/professional-dashboard.css" />
+  </head>
+  <body>
+    <aside class="menu">
+      <h1>Saytama</h1>
+      <ul>
+        <li>
+          <a href="datasheet.html">Ficha Técnica</a>
+        </li>
+        <li>
+          <a href="trainingsheet.html">Ficha de Treino</a>
+        </li>
+      </ul>
+    </aside>
+    <div class="container">
+      <table>
+        <thead>
+          <tr>
+            <th>Frequencia</th>
+            <th>Aluno</th>
+            <th>Treinador</th>
+            <th>Grupo de Musculo</th>
+            <th>Exercícios</th>
+          </tr>
+        </thead>
+        <tbody id="_trainings">
+          <tr class="trainings" style="display: none;">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <script src="../../modules/trainingsheet.js" type="module"></script>
+  </body>
+</html>

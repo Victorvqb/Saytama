@@ -7,6 +7,6 @@ import UserController from "../controllers/UserController.js";
 
 const UserRoute = express.Router();
 
-UserRoute.post("/", UserController.singUp);
+UserRoute.post("/", UserController.signUp);
 
 export { UserRoute };

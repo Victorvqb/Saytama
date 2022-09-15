@@ -7,6 +7,6 @@ import AuthController from "../controllers/AuthController.js";
 
 const AuthRoute = express.Router();
 
-AuthRoute.post("/singin", AuthController.singin);
+AuthRoute.post("/signin", AuthController.singin);
 
 export { AuthRoute };
